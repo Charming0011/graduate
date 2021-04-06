@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    图书馆设备维护登记系统后台-维护员添加
+{% endblock %}
+
+{% block subtitle %}
+    <a href="/index">图书馆设备维护系统-维护员添加</a>
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="col-lg-12">
+            <form method="post" action="/stuexc/" enctype="multipart/form-data">
+                <div class="form-group">
+                   <div class="col-sm-6">
+                       <div class="input-group">
+                           <span class="input-group-addon">Excel批量上传:</span>
+                       <input type="button" id='location' class="col-6" value="请点击这里选择文件" onclick="$('#i-file').click();">
+                           <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                           <button type="submit" class="btn btn-primary">提交</button>
+                           <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                           <a class="btn btn-info" data-toggle="modal" data-target="#help" >帮助</a>
+                       </div>
+                   </div>
+                   <input type="file" name="file" id='i-file'  accept=".xls, .xlsx" onchange="$('#location').val($('#i-file').val());" style="display: none">
+
+                </div>
+
+            </form>
+            <hr>
+                    <div class="card">
+                        <div class="card-header"><strong>添加维护员用户</strong></div>
+                        <div class="card-body card-block">
+                            <form action="/index/addstu/" method="post" class="">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">用户ID&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <input type="text" id="username3" name="userID" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">用户名&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                        <input type="text" id="username3" name="userna" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">用户密码</div>
+                                        <input type="text" id="email3" name="userpwd" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">再次确认</div>
+                                        <input type="text" id="password3" name="userpwdd" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions form-group">
+                                    <button type="submit" class="btn btn-primary">确认提交</button><strong style="color: red">{{ msg }}</strong>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                                                    <div class="modal fade" id="help" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+                                                              <!-- 模态框头部 -->
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">添加要求</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+                                                              <!-- 模态框主体 -->
+                                                              <div class="modal-body">
+                                                                  <span>请使用规范化Excel文件，只能添加维护员的学号、用户名、以及密码<br>上传前请仔细确认相关信息的准确性，可以点击下方按钮下载模板</span>
+                                                                  <hr>
+                                                                  <a href="/download/?filename=AddStu.xlsx"><i class="fa fa-download">维护员批量添加模版</i> </a>
+                                                              </div>
+                                                              <!-- 模态框底部 -->
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+
+    </div>
+{% endblock %}
+{% block script %}
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+
+{% endblock %}

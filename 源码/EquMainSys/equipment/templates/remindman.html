@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    图书馆设备维护登记系统后台-提醒事项
+{% endblock %}
+{% block subtitle %}
+    <a href="/index/"> 图书管设备维护系统-提醒事项</a>
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+    <div class="row">
+                    <div class="col-lg-12">
+                    <form method="GET" action="/index/remindsearch/">
+                    <input type="text" class="col-lg-4" name="date" placeholder="请输入日期,注意日期格式"/>
+{#                    <input type="button" class="btn btn-dark" value="搜索"/>#}
+                        <button type="submit" class="btn btn-dark" value="搜索">搜索</button>
+                        <a href="/index/addremind/">
+                                    <input type="button" class="btn btn-secondary" value="添加提醒事项"/>
+                                </a>
+                    </form>
+
+                                    <hr>
+                        <div class="card">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <strong class="card-title">提醒事项详情</strong>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                     <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">时间</th>
+                                                        <th scope="col">用户</th>
+                                                        <th scope="col">内容</th>
+                                                        <th scope="col">详情</th>
+                                                        <th scope="col">修改</th>
+                                                        <th scope="col">删除</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <div class="modal fade" id="ch" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+                                                              <!-- 模态框头部 -->
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">修改数据</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+                                                              <!-- 模态框主体 -->
+                                                              <div class="modal-body">
+{#                                                                <p>pass</p>#}
+                                                                  <input id="remindid" style="display: none" type="text"/>
+                                                                  <strong>提醒事项详情：</strong>
+                                                                  <hr>
+                                                                  <div class="container">
+                                                                    <textarea class="form-control" id="content" ></textarea>
+                                                                  </div>
+                                                              </div>
+
+                                                              <!-- 模态框底部 -->
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                  <a href="/index/remindman/">
+                                                                  <input onclick="return submit_ch()" type="button" value="确认" class="btn btn-danger"/>
+                                                                      </a>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                {% for i in current_Page %}
+                                                    <tr>
+                                                        <th scope="row">{{ i.id }}</th>
+                                                        <td>{{ i.date }}</td>
+                                                        <td>{{ i.who }}</td>
+                                                        <td>{{ i.content |safe|truncatechars:7 }}...</td>
+                                                        <td><button class="btn-danger" data-toggle="modal" data-target="#my{{ i.id }}">详情</button> </td>
+                                                        <td><button onclick="get_nid(this)" class=".btn-sm btn-warning" data-toggle="modal" data-target="#ch">修改</button> </td>
+                                                        <td><button class=".btn-sm btn-danger" data-toggle="modal" data-target="#del{{ i.id }}">删除</button> </td>
+                                                    </tr>
+
+{#                                                        模态框开始#}
+                                                        <div class="modal fade" id="my{{ i.id }}" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+{#                                                              <!-- 模态框头部 -->#}
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">详情</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+{#                                                              <!-- 模态框主体 -->#}
+                                                              <div class="modal-body">
+                                                                <div class="container">
+                                                                    <label>详情：{{ i.content }}</label>
+                                                                    <hr>
+                                                                </div>
+
+
+                                                              </div>
+
+{#                                                              <!-- 模态框底部 -->#}
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                              </div>
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+
+{#                                                    删除#}
+                                                    <div class="modal fade" id="del{{ i.id }}" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+                                                              <!-- 模态框头部 -->
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">删除</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+                                                              <!-- 模态框主体 -->
+                                                              <div class="modal-body">
+                                                                  <strong>确认删除？</strong>
+                                                              </div>
+
+                                                              <!-- 模态框底部 -->
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn-secondary" data-dismiss="modal">关闭</button>
+                                                                      <a href="/index/remindel?nid={{ i.id }}">
+                                                                      <input  type="button"  value="删除" class="btn-danger"/>
+                                                                      </a>
+                                                              </div>
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        <div>
+                                                    <nav aria-label="Page navigation" >
+                                                      <ul class="pagination">
+{#                                                      <!--判断是否有上一页-->#}
+                                                            {% if not current_Page.has_previous %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="#" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li class="page-item">
+                                                                  <a href="?page={{ current_Page.previous_page_number }}" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+{#                                                            <!--判断遍历的页数是否为当前页，是就添加.avtive 背景色变蓝-->#}
+                                                          {% for page_range in pag_range %}
+                                                              {% if current_Page_num == page_range %}
+                                                                    <li class="page-item active"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% else %}
+                                                                    <li class="page-item"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% endif %}
+                                                          {% endfor %}
+
+{#                                                      <!-- 判断是否最后一页 -->#}
+                                                            {% if not current_Page.has_next %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="?page={{ current_Page_num }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li>
+                                                                  <a href="?page={{ current_Page.next_page_number }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                      </ul>
+                                                    </nav>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+    function get_nid(ths) {
+        var reid = $(ths).parent().prevAll();
+        console.log(reid)
+        $('#remindid').val(reid[4].innerText);
+        console.log($('#remindid').val())
+        {#console.log($('#equid').val())#}
+
+    }
+
+        function filter() {
+
+        }
+
+        function submit_ch() {
+            var reminid=$('#remindid').val();
+            var content=$('#content').val();
+            console.log(reminid)
+            if (content==null){
+                alert('字段不能为空！');
+                return false;
+            }
+            else
+                {
+                    $.ajax({
+                        url: '/index/remindch/',
+                        type: 'POST',
+                        data: {
+                            'nid':reminid,
+                            'content':content,
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    })
+                    return true;
+                }
+        }
+    </script>
+{% endblock %}

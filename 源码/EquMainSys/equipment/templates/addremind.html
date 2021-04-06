@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    图书馆设备维护登记系统后台-提醒事项添加
+{% endblock %}
+
+{% block subtitle %}
+    <a href="/index">图书馆设备维护系统-添加提醒事项</a>
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>添加提醒事项</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form action="/index/addremind/" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">提醒事项详情：</label></div>
+                                        <div class="col-12 col-md-9"><textarea name="content" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                                    </div>
+                                    <div class="form-actions form-group">
+                                        <button type="submit" class="btn-primary btn-lg">确认提交</button>
+                                        <strong style="color: red">{{ msg }}</strong>
+                                </div>
+
+
+                                </form>
+                    </div>
+    </div>
+        </div>
+    </div>
+{% endblock %}

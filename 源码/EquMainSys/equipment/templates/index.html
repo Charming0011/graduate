@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block title %}图书馆设备维护登记系统——后台{% endblock %}
+
+{% block subtitle %}
+    <a href="/index">图书馆设备维护系统-后台</a>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="content">
+    <div class="animated fadeIn">
+                <!-- Widgets  -->
+                <div class="row">
+                   <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="stat-widget-five">
+                                    <div class="stat-icon dib flat-color-4">
+                                        <i class="pe-7s-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <div class="text-left dib">
+                                            <div class="stat-text"><span>{{user_count}}</span></div>
+                                            <div class="stat-heading">维护员数量</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="stat-widget-five">
+                                        <div class="stat-icon dib flat-color-1">
+                                            <i class="pe-7s-cash"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="text-left dib">
+                                                <div class="stat-text"><span>{{equ_count}}</span></div>
+                                                <div class="stat-heading">设备数量</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{#    近期登陆情况#}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <strong class="card-title">近期登陆情况</strong>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">用户ID</th>
+                                                        <th scope="col">用户名</th>
+                                                        <th scope="col">登陆时间</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in c_Page %}
+                                                    <tr>
+                                                        <th scope="row">{{ i.id }}</th>
+                                                        <td>{{ i.userid }}</td>
+                                                        <td>{{ i.username }}</td>
+                                                        <td>{{ i.logindate }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        <div>
+                                                    <nav aria-label="Page navigation" >
+                                                      <ul class="pagination">
+{#                                                      <!--判断是否有上一页-->#}
+                                                            {% if not c_Page.has_previous %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="#" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li class="page-item">
+                                                                  <a href="?tpage={{ c_Page.previous_page_number }}" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+{#                                                            <!--判断遍历的页数是否为当前页，是就添加.avtive 背景色变蓝-->#}
+                                                          {% for t_range in t_range %}
+                                                              {% if c_Page_num == t_range %}
+                                                                    <li class="page-item active"><a href="?tpage={{ t_range }}" class="page-link">{{ t_range }}</a></li>
+                                                              {% else %}
+                                                                    <li class="page-item"><a href="?tpage={{ t_range }}" class="page-link">{{ t_range }}</a></li>
+                                                              {% endif %}
+                                                          {% endfor %}
+
+{#                                                      <!-- 判断是否最后一页 -->#}
+                                                            {% if not c_Page.has_next %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="?tpage={{ c_Page_num }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li>
+                                                                  <a href="?tpage={{ c_Page.next_page_number }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                      </ul>
+                                                    </nav>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{#    提醒事项#}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+{#                            <div class="card-body">#}
+{#                                <h4 class="box-title">提醒事项</h4>#}
+{#                            </div>#}
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <strong class="card-title">提醒事项</strong>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">时间</th>
+                                                        <th scope="col">用户</th>
+                                                        <th scope="col">内容</th>
+                                                        <th scope="col">详情</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in current_Page %}
+                                                    <tr>
+                                                        <th scope="row">{{ i.id }}</th>
+                                                        <td>{{ i.date }}</td>
+                                                        <td>{{ i.who }}</td>
+                                                        <td>{{ i.content |safe|truncatechars:7 }}...</td>
+                                                        <td><button class="btn-danger" data-toggle="modal" data-target="#my{{ i.id }}">详情</button> </td>
+
+
+{#                                                        模态框开始#}
+                                                        <div class="modal fade" id="my{{ i.id }}" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+{#                                                              <!-- 模态框头部 -->#}
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">详情</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+{#                                                              <!-- 模态框主体 -->#}
+                                                              <div class="modal-body">
+                                                                <p>{{ i.content }}</p>
+                                                              </div>
+
+{#                                                              <!-- 模态框底部 -->#}
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                              </div>
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        <div>
+                                                    <nav aria-label="Page navigation" >
+                                                      <ul class="pagination">
+{#                                                      <!--判断是否有上一页-->#}
+                                                            {% if not current_Page.has_previous %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="#" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li class="page-item">
+                                                                  <a href="?page={{ current_Page.previous_page_number }}" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+{#                                                            <!--判断遍历的页数是否为当前页，是就添加.avtive 背景色变蓝-->#}
+                                                          {% for page_range in pag_range %}
+                                                              {% if current_Page_num == page_range %}
+                                                                    <li class="page-item active"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% else %}
+                                                                    <li class="page-item"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% endif %}
+                                                          {% endfor %}
+
+{#                                                      <!-- 判断是否最后一页 -->#}
+                                                            {% if not current_Page.has_next %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="?page={{ current_Page_num }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li>
+                                                                  <a href="?page={{ current_Page.next_page_number }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                      </ul>
+                                                    </nav>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+
+{% endblock %}
+
+
+

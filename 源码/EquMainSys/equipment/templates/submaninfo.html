@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+{#    <link rel="stylesheet" href="/static/assets/css/normalize.css">#}
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+{#    <link rel="stylesheet" href="/static/assets/css/themify-icons.css">#}
+    <link rel="stylesheet" href="/static/assets/css/pe-icon-7-filled.css">
+{#    <link rel="stylesheet" href="/static/assets/css/flag-icon.min.css">#}
+{#    <link rel="stylesheet" href="/static/assets/css/cs-skin-elastic.css">#}
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+    <script type="text/javascript" src="/static/assets/js/jquery-1.12.4.min.js"></script>
+
+    <title>提交维护记录</title>
+</head>
+<body>
+    <div class="content">
+        <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>维护信息提交</strong>
+                            </div>
+                            <div class="card-body card-block">
+                             <div class="row form-group">
+                                        <div class="col col-md-3"><label class="form-control-label"><strong>当前用户：</strong></label></div>
+                                        <div class="col-12 col-md-9">
+                                            <p class="form-control-static" style="font-size: larger">{{ username }}</p>
+                                        </div>
+                                    </div>
+                            <hr>
+{#                                <form action="/subadd/" method="post" enctype="multipart/form-data" class="form-horizontal">#}
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="select" class=" form-control-label">选择机器所在位置</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select name="loction" id="select" class="form-control-lg form-control">
+                                                <option value="0">Please select</option>
+                                                {% for i in equlist %}
+                                                    <option  value="{{ i.id }}">{{ i.location }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                <hr>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">系统运行状况：</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="systemrun" name="systemrun" placeholder="请记录" class="form-control"><small class="form-text text-muted">请判断系统运行状况并记录</small></div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="email-input" class=" form-control-label">广告清除情况：</label></div>
+                                        <div class="col-12 col-md-9"><input type="email" id="adout" name="adout" placeholder="请记录" class="form-control"><small class="form-text text-muted">请检查电脑广告弹窗情况并记录</small></div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="password-input" class=" form-control-label">系统其他设置情况：</label></div>
+                                        <div class="col-12 col-md-9"><input type="text" id="otherset" name="otherset" placeholder="请记录" class="form-control"><small class="form-text text-muted">请检查系统设置情况并记录</small></div>
+                                    </div>
+                                <hr>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label class=" form-control-label">鼠标是否正常：</label></div>
+                                        <div class="col col-md-9">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="radio1" class="form-check-label ">
+                                                        <input type="radio" id="mouse" name="mouse" value="正常" class="form-check-input" checked="true">正常
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2" class="form-check-label ">
+                                                        <input type="radio" id="mouse" name="mouse" value="不能正常使用" class="form-check-input">不能正常使用
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label class=" form-control-label">键盘是否正常：</label></div>
+                                        <div class="col col-md-9">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="radio1" class="form-check-label ">
+                                                        <input type="radio" id="radio1" name="keyboard" value="正常" class="form-check-input" checked="true">正常
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2" class="form-check-label ">
+                                                        <input type="radio" id="radio2" name="keyboard" value="不能正常使用" class="form-check-input">不能正常使用
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="row form-group">
+                                        <div class="col col-md-3"><label class=" form-control-label">屏幕是否正常：</label></div>
+                                        <div class="col col-md-9">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="radio1" class="form-check-label ">
+                                                        <input type="radio" id="radio1" name="screen" value="正常" class="form-check-input" checked="true">正常
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2" class="form-check-label ">
+                                                        <input type="radio" id="radio2" name="screen" value="存在花屏/黑屏现象" class="form-check-input">黑屏/花屏
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="row form-group">
+                                        <div class="col col-md-3"><label class=" form-control-label">主机是否正常：</label></div>
+                                        <div class="col col-md-9">
+                                            <div class="form-check">
+                                                <div class="radio">
+                                                    <label for="radio1" class="form-check-label ">
+                                                        <input type="radio" id="radio1" name="engine" value="正常" class="form-check-input" checked="true">正常
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2" class="form-check-label ">
+                                                        <input type="radio" id="radio2" name="engine" value="声响异常" class="form-check-input" >声响异常
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="radio2" class="form-check-label ">
+                                                        <input type="radio" id="radio2" name="engine" value="无法正常启动" class="form-check-input">无法正常启动
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <hr>
+
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">备注：</label></div>
+                                        <div class="col-12 col-md-9"><textarea name="note" id="note" rows="9" placeholder="Content..." class="form-control"></textarea></div>
+                                    </div>
+                                <hr>
+                                <a href="/submaninfo/">
+                                <button type="submit" onclick="return sub()" class="btn btn-primary btn-lg btn-block">提交</button>
+                                </a>
+{#                                </form>#}
+                            </div>
+
+                        </div>
+                    </div>
+    </div>
+<script>
+
+    function sub() {
+        var location = $('#select').val();
+        var systemrun = $('#systemrun').val();
+        var adout = $('#adout').val();
+        var otherset = $('#otherset').val();
+        var note = $('#note').val();
+        var mouse = $("input[name='mouse']:checked").val();
+        var keyboard = $("input[name='keyboard']:checked").val();
+        var screen = $("input[name='screen']:checked").val();
+        var engine = $("input[name='engine']:checked").val();
+        {#console.log(location);#}
+        {#console.log(adout);#}
+        {#console.log(otherset);#}
+        {#console.log(mouse);#}
+        {#console.log(keyboard);#}
+        {#console.log(screen);#}
+        {#console.log(engine);#}
+        {#console.log(note);#}
+        if (location == '0') {
+            alert('请选择机器所在位置！');
+            return false;
+        }
+        if(systemrun.length==0||  adout.length==0 ||otherset.length==0) {
+            alert('请填写所有字段！');
+            return false;
+        }
+        else {
+            $.ajax({
+                url: '/subadd/',
+                type: 'POST',
+                data: {
+                    'equid': location,
+                    'sytemrun': systemrun,
+                    'adout': adout,
+                    'otherset': otherset,
+                    'note': note,
+                    'mouse': mouse,
+                    'keyboard': keyboard,
+                    'screen': screen,
+                    'engine': engine,
+                },
+                success: function (data) {
+                    console.log(data);
+                    alert(data);
+                }
+            })
+            return true;
+
+        }
+}
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="SWPU Lib Equ main-sys">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+{#    <link rel="stylesheet" href="/static/assets/css/normalize.css">#}
+    <link rel="stylesheet" href="/static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+{#    <link rel="stylesheet" href="/static/assets/css/themify-icons.css">#}
+    <link rel="stylesheet" href="/static/assets/css/pe-icon-7-filled.css">
+{#    <link rel="stylesheet" href="/static/assets/css/flag-icon.min.css">#}
+{#    <link rel="stylesheet" href="/static/assets/css/cs-skin-elastic.css">#}
+    <link rel="stylesheet" href="/static/assets/css/style.css">
+    <script type="text/javascript" src="/static/assets/js/jquery-1.12.4.min.js"></script>
+
+
+</head>
+
+<body>
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li class="active">
+                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    </li>-->
+                    <li class="menu-title">菜单栏</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="menu-icon fa fa-user"></i>用户管理</a>
+
+                        <ul class="sub-menu children dropdown-menu">
+                           <li><i class="fa fa-id-card"></i><a href="/index/adminman">管理员管理</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="/index/stuman">维护员管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>设备信息</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="/index/equinfo">设备基本信息</a></li>
+{#                            <li><i class="fa fa-table"></i><a href="#">Data Table</a></li>#}
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>设备维护信息</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="/index/equman">设备维护信息记录</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="/index/badequ">问题设备登记记录</a></li>
+{#                            <li><i class="menu-icon fa fa-th"></i><a href="#">Advanced Form</a></li>#}
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>其他事项管理</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="/index/remindman">提醒事项查看</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="/index/recent">用户活动查看</a></li>
+{#                            <li><i class="menu-icon fa fa-th"></i><a href="#">Advanced Form</a></li>#}
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </aside>
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+{#                    <a class="navbar-brand" href="./"><img src="/static/assets/images/logo.png" alt="Logo"></a>#}
+<!--                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>-->
+                    <strong class="card-title">{% block subtitle %}{% endblock %}</strong>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+
+                    <div class="user-area dropdown float-right">
+                        <a href=""  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            欢迎你：{{ username }}
+{#                            <img class="user-avatar rounded-circle" src="/static/images/admin.jpg" alt="{{ username }}">#}
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                                <a href="/logout/"><i class="fa fa-power -off"></i>退出登陆</a>
+                        </div>
+                    </div>
+{#                    {% if username %}#}
+{#                        <a class="nav-link" href="/logout" style="color: red"><i class="fa fa-power -off"></i>退出登陆</a>#}
+{#                    {% endif %}#}
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Content -->
+            {% block content %}{% endblock %}
+
+
+
+{#        <footer class="site-footer">#}
+{#            <div class="footer-inner bg-white">#}
+{#                <div class="row">#}
+{#                    <div class="col-sm-6">#}
+{#                        Copyright &copy; 2018 Ela Admin. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>#}
+{#                        <p>PASS</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </footer>#}
+
+        </div>
+        <!--content-end-->
+    </div>
+    {% block script %}
+
+
+    {% endblock %}
+
+    <script src="/static/scripts/jquery-1.9.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/assets/js/plugins.js"></script>
+    <script src="/static/assets/js/main.js"></script>
+</body>
+</html>

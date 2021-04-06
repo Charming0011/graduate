@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}
+    图书馆设备维护登记系统——后台
+{% endblock %}
+
+{% block subtitle %}
+    <a href="/index">图书馆设备维护系统-维护员管理</a>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="row">
+                    <div class="col-lg-12">
+{#                    <div class="col-lg-12">#}
+                        <div class="form-group">
+                            <form method="GET" action="/index/stusearch/">
+                                <input type="text" class="col-lg-3" placeholder="请输入用户名" name="user"/>
+                                <input type="submit" class="btn btn-dark" value="搜索"/>
+                                <span>|</span>
+                                <a href="/index/addstu">
+                                    <input type="button" class="btn btn-secondary" value="添加维护员"/>
+                                </a>
+                                <span>|</span>
+                                <a href="/outexc/?filename=stu"><input type="button" class="btn btn-info" value="导出全部维护员列表"/> </a>
+                            </form>
+
+                                    <hr>
+                        <div class="card">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <strong class="card-title">维护员详细信息</strong>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">用户ID</th>
+                                                        <th scope="col">用户名</th>
+                                                        <th scope="col">用户密码</th>
+                                                        <th scope="col">上次登陆时间</th>
+                                                        <th scope="col">总计提交维护记录数</th>
+                                                        <th scope="col">修改</th>
+                                                        <th scope="col">删除</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <div class="modal fade" id="ch" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+                                                              <!-- 模态框头部 -->
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">修改数据</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+                                                              <!-- 模态框主体 -->
+                                                              <div class="modal-body">
+{#                                                                <p>pass</p>#}
+                                                                  <input id="stuid" style="display: none" type="text"/>
+                                                                  <div style="text-align: center">
+                                                                      <label>用户ID：&nbsp;&nbsp;&nbsp;&nbsp;</label>
+{#                                                                      <span class="fa fa-user"></span>#}
+                                                                      <input id="userID" class="login" name="usrID" type="text" />
+                                                                      </div>
+                                                                      <div style="text-align: center">
+                                                                      <label>用户名：&nbsp;&nbsp;&nbsp;&nbsp;</label>
+{#                                                                      <span class="fa fa-user"></span>#}
+                                                                      <input id="user" class="login" name="change_name" type="text" />
+                                                                      </div>
+                                                                      <div style="text-align: center">
+                                                                      <label>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+{#                                                                      <span class="fa fa-lock"></span>#}
+                                                                      <input id="pwd" class="login" name="change_pwd" type="text"/>
+                                                                      </div>
+                                                                      <div style="text-align: center">
+                                                                      <label>确认密码：</label>
+{#                                                                      <span class="fa fa-lock" ></span>#}
+                                                                      <input id="chpwd" class="login" name="change_pwd" type="text"/>{{ ermsg }}
+                                                                      </div>
+                                                              <!-- 模态框底部 -->
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                  <a href="/index/stuman">
+                                                                  <input onclick="submit_ch()" type="button" value="确认" class="btn btn-danger"/>
+                                                                      </a>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                        </div>
+
+
+
+
+
+                                                {% for i in current_Page %}
+                                                    <tr>
+                                                        <th scope="row">{{ i.id }}</th>
+                                                        <td>{{ i.stuser }}</td>
+                                                        <td>{{ i.stuname }}</td>
+                                                        <td>{{ i.stpwd }}</td>
+                                                        <td>{{ i.lastime }}</td>
+                                                        <td>{{ i.total }}</td>
+{#                                                        <td><button class=".btn-sm btn-primary" data-toggle="modal" data-target="#my{{ i.id }}">详情</button> </td>#}
+                                                        <td><button onclick="get_nid(this)"  class=".btn-sm btn-warning" data-toggle="modal" data-target="#ch">修改</button> </td>
+                                                        <td><button class=".btn-sm btn-danger" data-toggle="modal" data-target="#del{{ i.id }}">删除</button> </td>
+
+                                                        <div class="modal fade" id="del{{ i.id }}" tabindex="-1" role="dialog">
+                                                          <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+
+                                                              <!-- 模态框头部 -->
+                                                              <div class="modal-header">
+                                                                <h4 class="modal-title">详情</h4>
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                              </div>
+
+                                                              <!-- 模态框主体 -->
+                                                              <div class="modal-body">
+                                                                <strong>确认删除？</strong>
+                                                              </div>
+
+                                                              <!-- 模态框底部 -->
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                                                  <a href="/index/studel?nid={{ i.id }}">
+                                                                      <input  type="button"  value="删除" class="btn btn-danger"/>
+                                                                      </a>
+                                                              </div>
+
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                    </tr>
+
+
+                                                {% endfor %}
+
+
+                                                </tbody>
+                                            </table>
+{#                                        分页器开始#}
+                                                <div>
+                                                    <nav aria-label="Page navigation" >
+                                                      <ul class="pagination">
+{#                                                      <!--判断是否有上一页-->#}
+                                                            {% if not current_Page.has_previous %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="#" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li class="page-item">
+                                                                  <a href="?page={{ current_Page.previous_page_number }}" aria-label="Previous" class="page-link">
+                                                                    <span aria-hidden="true">上一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+{#                                                            <!--判断遍历的页数是否为当前页，是就添加.avtive 背景色变蓝-->#}
+                                                          {% for page_range in pag_range %}
+                                                              {% if current_Page_num == page_range %}
+                                                                    <li class="page-item active"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% else %}
+                                                                    <li class="page-item"><a href="?page={{ page_range }}" class="page-link">{{ page_range }}</a></li>
+                                                              {% endif %}
+                                                          {% endfor %}
+
+{#                                                      <!-- 判断是否最后一页 -->#}
+                                                            {% if not current_Page.has_next %}
+                                                                <li class="page-item disabled">
+                                                                  <a href="?page={{ current_Page_num }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                                {% else %}
+                                                                <li>
+                                                                  <a href="?page={{ current_Page.next_page_number }}" aria-label="Next" class="page-link">
+                                                                    <span aria-hidden="true">下一页</span>
+                                                                  </a>
+                                                                </li>
+                                                            {% endif %}
+
+                                                      </ul>
+                                                    </nav>
+                                                </div>
+{#                                            分页器结束#}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+</div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+
+
+
+    <script>
+    function get_nid(ths) {
+        var userid = $(ths).parent().prevAll();
+        $('#stuid').val(userid[5].innerText);
+        {#console.log(userid)#}
+        {#alert(userid[0]);#}
+
+    }
+
+
+        function submit_ch() {
+            var stuid=$('#stuid').val();
+            var userna=$('#user').val();
+            var pwd=$('#pwd').val();
+            var chpwd=$('#chpwd').val();
+            var usrID=$('#userID').val();
+            console.log(stuid)
+
+            if (userna.length == 0 || pwd.length==0 || chpwd.length==0){
+                alert('用户名或密码不能为空！');
+                return false;
+            }
+
+            else if (pwd!=chpwd) {
+                alert('密码不一致！');
+                return false;
+            }
+            else
+                {
+                    $.ajax({
+                        url: '/index/stuch/',
+                        type: 'POST',
+                        data: {
+                            'usrID':usrID,
+                            'userid': stuid,
+                            'pwd': pwd,
+                            'userna':userna,
+                            {#'auth':$('#auth'),#}
+                        },
+                        {#processData: false,#}
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    })
+                    return true;
+                }
+        }
+    </script>
+
+{% endblock %}
